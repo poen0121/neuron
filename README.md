@@ -1,10 +1,10 @@
 # Neuron Simulation
 
+![Rust](https://img.shields.io/badge/language-Rust-orange)
+
 ## About
 
-This code aims to simulate the behavior of neurons, including the reception and transmission of signals, the formation and pruning of synaptic connections, and the consideration of neural plasticity. 
-
-The simulation is implemented using the Rust programming language.
+This code aims to simulate the behavior of neurons, including the reception and transmission of signals, the formation and pruning of synaptic connections, and the consideration of neural plasticity.
 
 ## Neuron Structure
 
