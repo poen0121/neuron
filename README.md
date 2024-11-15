@@ -16,7 +16,7 @@ Below are the main components explained in detail:
 - **`ax`, `ay`, `az`**: 3D coordinates of the neuron axon.
 - **`nt`**: Type of neuron (0 = contact neuron, 1 = sensory neuron, 2 = motor neuron).
 - **`nrt`**: Type of neurotransmitter (0 = inhibitory, 1 = excitatory).
-  **`acv`**: Axon conduction velocity.
+- **`acv`**: Axon conduction velocity.
 - **`ap`**: Accumulated potential.
 - **`tp`**: Threshold potential.
 - **`mp`**: Membrane potential.
