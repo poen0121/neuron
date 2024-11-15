@@ -226,7 +226,7 @@ impl Neuron {
     async fn signal_delay(&self, source: &Neuron) {
         if source.acv > 0.0 && source.pr > 0.0 {
             let unit = self.calculate_distance(source);
-            if unit >= 0.0 {
+            if unit > 0.0 {
                 let millis = (unit / (source.acv * source.pr)).round() as u64;
                 sleep(Duration::from_millis(millis)).await;
             }
