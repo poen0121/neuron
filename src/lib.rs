@@ -13,6 +13,7 @@ pub struct Neuron {
     pub az: usize, // axon z-coordinate
     pub nt: u32,  // neuron type ( 0 = Contact , 1 = Sensory , 2 = Motor )
     pub nrt: u32, // neurotransmitter type ( 0 = Inhibitory , 1 = Excitatory )
+    pub acv: f64, // axon conduction velocity
     pub ap: f64,  // accumulated potential
     pub tp: f64,  // threshold potential
     pub mp: f64,  // membrane potential
@@ -99,6 +100,7 @@ impl Neuron {
             az,
             nt,
             nrt,
+            acv: 1.0,
             ap: 0.0,
             tp: Self::MIN_THRESHOLD_POTENTIAL,
             mp: Self::RESTING_POTENTIAL,
@@ -223,8 +225,10 @@ impl Neuron {
     // Parameters:
     // - `unit`: The time unit to delay the signal.
     async fn signal_delay(&self, unit: f64) {
-        let millis = unit.round() as u64;
-        sleep(Duration::from_millis(millis)).await;
+        if self.acv > 0.0 {
+            let millis = (unit / self.acv).round() as u64;
+            sleep(Duration::from_millis(millis)).await;
+        }
     }
 
     // Fires the neuron, generating a signal based on its type.
