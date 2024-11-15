@@ -188,8 +188,7 @@ impl Neuron {
     pub async fn transmit(&mut self, input: f64, source: Option<&Neuron>) {
         // Signal delay
         if let Some(neuron) = source {
-            let distance = self.calculate_distance(neuron);
-            self.signal_delay(distance).await;
+            self.signal_delay(neuron).await;
         }
 
         // Check if the neuron is in a refractory state and cannot process incoming signals
@@ -220,14 +219,17 @@ impl Neuron {
         let zd = (self.z - other.z).pow(2);
         ((xd + yd + zd) as f64).sqrt() // Return the Euclidean distance
     }
-    
-    // Delays the signal by a specified unit of time.
+
+    // Calculates and applies a delay to simulate signal transmission between neurons.
     // Parameters:
-    // - `unit`: The time unit to delay the signal.
-    async fn signal_delay(&self, unit: f64) {
-        if self.acv > 0.0 {
-            let millis = (unit / self.acv).round() as u64;
-            sleep(Duration::from_millis(millis)).await;
+    // - `source`: A reference to the source neuron.
+    async fn signal_delay(&self, source: &Neuron) {
+        if source.acv > 0.0 {
+            let unit = self.calculate_distance(source);
+            if unit >= 0.0 {
+                let millis = (unit / source.acv).round() as u64;
+                sleep(Duration::from_millis(millis)).await;
+            }
         }
     }
 
